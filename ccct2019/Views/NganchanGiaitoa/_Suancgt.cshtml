@@ -1,0 +1,355 @@
+﻿@model ccct2019.Data.NganchanGiaitoa
+<div class="modal fade" id="SuancgtModal" data-keyboard="false" data-backdrop="static" ng-app="">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-warning ">
+                <h4 class="modal-title font-weight-bold"><i class="fa fa-edit"></i> Sửa thông tin Ngăn chặn, Giải tỏa</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="editNCGT" id="editNCGT" ng-submit="submitForm()" novalidate>
+                    <div class="row text-sm">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-cyan">
+                                            <h4 class="card-title font-weight-bold">1. Thông tin giấy chứng nhận</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-group input-group-sm mb-4 " ng-class="{ 'has-error' : editNCGT.gcn.$invalid && !editNCGT.gcn.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="scn"><i class="fa fa-dice-one"></i> &nbsp; Số GCN</span>
+                                                </div>
+                                                <input type="text" id="updategcn" name="updategcn" value="@Model.SoGCN" class="form-control" aria-label="Small" aria-describedby="scn" ng-model="user.gcn" required>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.noicap.$invalid && !editNCGT.noicap.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fnoicap"><i class="fa fa-home"></i> &nbsp; Nơi cấp</span>
+                                                </div>
+                                                <input type="text" name="updatenoicap" id="updatenoicap" value="@Model.Noicap" class="form-control" aria-label="Small" aria-describedby="fnoicap" ng-model="user.noicap" required>
+
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.ngaycap.$invalid && !editNCGT.ngaycap.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fngaycap"><i class="far fa-calendar-alt"></i>&nbsp; Ngày cấp</span>
+                                                </div>
+                                                <input class="" type="text" name="updatengaycap" id="updatengaycap" value="@(Model.Ngaycap?.ToString("dd/MM/yyyy"))">
+                                                @*<b>@(Model.Ngaycap?.ToString("dd/MM/yyyy"))</b>*@
+                                                @*<input type="date" name="ngaycap" value="@(Model.Ngaycap?.ToString("dd/MM/yyyy"))" id="ngaycap" class="form-control" aria-label="Small" aria-describedby="fngaycap" ng-model="user.ngaycap" required>*@
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-cyan">
+                                            <h4 class="card-title font-weight-bold">2. Thông tin chủ sở hữu</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.hoten.$invalid && !editNCGT.hoten.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fhoten"><i class="fa fa-user"></i>&nbsp; Họ tên</span>
+                                                </div>
+                                                <input type="text" id="updatehoten" name="updatehoten" value="@Model.Chusohuu" class="form-control" aria-label="Small" aria-describedby="fhoten" ng-model="user.hoten" required>
+
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.diachi.$invalid && !editNCGT.diachi.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fdiachicsh"><i class="fa fa-location-arrow"></i>&nbsp; Địa chỉ</span>
+                                                </div>
+                                                <textarea class="form-control" id="updatediachichusohuu" value="@Model.Diachichusohuu">@Model.Diachichusohuu</textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-cyan">
+                                            <h4 class="card-title font-weight-bold">3. Thông tin tài sản</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.thuadat.$invalid && !editNCGT.thuadat.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fthuadat"><i class="fa fa-map-marked-alt"></i> &nbsp;Thửa đất số</span>
+                                                </div>
+                                                <input type="text" id="updatethuadatso" name="updatethuadatso" value="@Model.Thuadatso" class="form-control" aria-label="Small" aria-describedby="fthuadat" ng-model="user.thuadat" required>
+
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.bandoso.$invalid && !editNCGT.bandoso.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fbandoso"><i class="fa fa-map-marked-alt"></i> &nbsp;Bản đồ số</span>
+                                                </div>
+                                                <input type="text" id="updatebandoso" name="updatebandoso" value="@Model.Bandoso" class="form-control" aria-label="Small" aria-describedby="fbandoso" ng-model="user.bandoso" required>
+
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.diachithuadat.$invalid && !editNCGT.diachithuadat.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fdiachi"><i class="fa fa-map-marked-alt"></i> &nbsp;Địa chỉ</span>
+                                                </div>
+                                                <textarea class="form-control" id="updatediachithuadat" value="@Model.Diachithuadat">@Model.Diachithuadat</textarea>
+
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.dientich.$invalid && !editNCGT.dientich.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fdientich">Diện tích (m<sup>2</sup>) </span>
+                                                </div>
+                                                <input type="text" class="form-control" value="@Model.Dientich" id="updatedientich" name="updatedientich" aria-label="Small" aria-describedby="fdientich" ng-model="user.dientich" required>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm mb-4">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fsudungchung">Sử dụng chung </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" value="@Model.Sudungchung" id="updatesudungchung" name="updatesudungchung" aria-label="Small" aria-describedby="fsudungchung">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm mb-4">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fsudungrieng">Sử dụng riêng </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" value="@Model.Sudungrieng" id="updatesudungrieng" name="updatesudungrieng" aria-label="Small" aria-describedby="fsudungrieng">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fmucdichsudung">Mục đích sử dụng </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="updatemucdichsudung" value="@Model.Mucdichsudung" name="updatemucdichsudung" aria-label="Small" aria-describedby="fmucdichsudung">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fthoihansudung">Thời hạn sử dụng </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="updatethoihansudung" value="@Model.Thoihansudung" name="updatethoihansudung" aria-label="Small" aria-describedby="fthoihansudung">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fnguongoc">Nguồn gốc </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="updatenguongoc" value="@Model.Nguongoc" name="updatenguongoc" aria-label="Small" aria-describedby="fnguongoc">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-cyan">
+                                            <h3 class="card-title font-weight-bold">4. Thông báo Ngăn chặn,Giải tỏa</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.loaivb.$invalid && !editNCGT.loaivb.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" for="loaivb"><i class="fa fa-th-list"></i>&nbsp; VB thuộc loại</span>
+                                                </div>
+                                                <select class="custom-select" id="updateloaivb" name="updateloaivb">
+
+                                                    @{
+                                                        if (Model.LoaiVB == 1)
+                                                        {
+                                                            <option value="@Model.LoaiVB" selected>Ngăn chặn - (Loại VB hiện tại)</option>
+                                                            <option value="2">Giải tỏa</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@Model.LoaiVB" selected>Giải tỏa - (Loại VB hiện tại)</option>
+                                                            <option value="1">Ngăn chặn</option>
+                                                        }
+                                                    }
+                                                </select>
+
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-5">
+                                                    <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : editNCGT.sokyhieu.$invalid && !editNCGT.sokyhieu.$pristine }">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fsokyhieu"><i class="fa fa-dot-circle-o"></i>&nbsp;Số ký hiệu </span>
+                                                        </div>
+                                                        <input type="text" id="updatesokyhieu" name="updatesokyhieu" value="@Model.Sokyhieu" class="form-control" aria-label="Small" aria-describedby="fsokyhieu" ng-model="user.sokyhieu" required>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-7">
+                                                    <div class="input-group input-group-sm mb-4">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fngayvb"><i class="fa fa-calendar-alt"></i>&nbsp;Ngày VB </span>
+                                                        </div>
+                                                        <input type="text" class="" id="updatengayvb" value="@(Model.NgayVB?.ToString("dd/MM/yyyy"))" name="updatengayvb" aria-label="Small" aria-describedby="fngayvb">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="ftrichyeu"><i class="fa fa-pencil-alt"></i>&nbsp; Trích yếu </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="updatetrichyeu" value="@Model.Trichyeu" name="trichyeu" aria-label="Small" aria-describedby="ftrichyeu">
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fnoigui"><i class="fa fa-location-arrow"></i>&nbsp;Nơi gửi </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="updatenoigui" name="updatenoigui" value="@Model.Noigui" aria-label="Small" aria-describedby="fnoigui">
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="flydo"><i class="fa fa-pager"></i>&nbsp;Lý do </span>
+                                                </div>
+                                                <textarea class="form-control" id="updatelydo" value="@Model.Lydo" name="updatelydo">@Model.Lydo</textarea>
+                                            </div>
+                                            <a type="button" class="btn-link" href="@Model.Filedinhkem" target="_blank"><b class="text-danger"><i class="fa fa-file-archive"></i> Tệp đính kèm  </b>@Model.Filedinhkem.Remove(0, 25)</a>
+                                            <!-- File input field -->
+                                            <input type="file" class="mb-4 form-control" value="@Model.Filedinhkem" id="updatefile" onchange="return updatefileValidation()" />
+                                            <input type="button" id="updatemsg" style="display:none;" value="@Model.Filedinhkem" class="mb-4 form-control" name="updatemsg" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" value="@Session["userid"]" id="UserID" />
+                            <input type="hidden" value="@Model.ID" id="ncgtID" />
+                        </div>
+                        @*<div class="col-2">
+                                <div class="card h-100">
+                                    <div class="card-header bg-gradient-warning">
+                                        <h4 class="card-title font-weight-bold">Kiểm tra thông tin</h4>
+                                    </div>
+                                    <div class="input-group input-group-sm mb-4">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="search-check"><i class="fa fa-search-plus"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="GCN, Nơi cấp" aria-label="Small" aria-describedby="search-check">
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="h-100 p-3 control-sidebar-content os-host os-theme-light os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-overflow os-host-overflow-y os-host-transition">
+                                            <div class="os-resize-observer-host">
+                                                <div class="os-resize-observer observed" style="left: 0px; right: auto;">
+                                                </div>
+                                            </div>
+                                            <div class="os-size-auto-observer" style="height: calc(100% + 1px); float: left;">
+                                                <div class="os-resize-observer observed">
+                                                </div>
+                                            </div>
+                                            <div class="os-content-glue" style="margin: -16px; width: 249px; height: 210px;">
+                                            </div>
+                                            <div class="os-padding">
+                                                <div class="os-viewport os-viewport-native-scrollbars-invisible h-100" style="overflow-y: scroll;">
+                                                    <div class="os-content" style="padding: 16px; height: 100%; width: 100%;">
+
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable">
+                                                <div class="os-scrollbar-track">
+                                                    <div class="os-scrollbar-handle" style="transform: translate(0px, 0px); width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar os-scrollbar-vertical">
+                                                <div class="os-scrollbar-track">
+                                                    <div class="os-scrollbar-handle" style="transform: translate(0px, 0px); height: 16.3186%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar-corner">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                    <input type="hidden" value="@Session["userid"]" id="updateUserID" />
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-success" onclick="btnEditNcgt();"><i class="fa fa-plus"></i> Lưu lại</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<script>
+    $(function () {
+        $("#updatengaycap").datepicker({
+            prevText: "Trước",
+            nextText: "Sau",
+            currentText: "Hôm nay",
+            monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+            monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
+            dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+            dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+            dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            weekHeader: "Tuần",
+            dateFormat: "mm/dd/yy",
+            firstDay: 1,
+            showMonthAfterYear: false
+        });
+    });
+
+    $(function () {
+        $("#updatengayvb").datepicker({
+            prevText: "Trước",
+            nextText: "Sau",
+            currentText: "Hôm nay",
+            monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+            monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
+            dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+            dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+            dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+            weekHeader: "Tuần",
+            dateFormat: "mm/dd/yy",
+            firstDay: 1,
+            showMonthAfterYear: false
+        });
+    });
+</script>

@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "ViewNCGT";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row mt-2">
+    <div class="col-md-12">
+        <div class="card card-default">
+            <div class="card-header bg-gradient-primary">
+                <div class="card-tools">
+                    <div class="input-group input-group-sm">
+                        <input type="text" id="searchncgtMod" class="form-control" placeholder="Tìm kiếm">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" onclick="searchNganchangiaitoaMod();">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="card-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Xem ngăn chặn - Giải tỏa
+                </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <span class="mt-2" id="tblncgtMod">
+                    @{Html.RenderAction("SearchMod", "NganchanGiaitoa", new { search = "", Page = 1 });}
+                </span>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+<div id="XemncgtMod"></div>
+
+

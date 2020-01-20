@@ -1,0 +1,367 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model ccct2019.Data.NganchanGiaitoa
+<div class="clearfix"></div>
+<div class="card card-primary card-outline">
+    <div class="card-header bg-gradient-primary">
+        <span class="text-bold">Thông tin Ngăn chặn - Giải tỏa</span> @*<a href="#"><i class="far fa-bell"></i><span class="right badge badge-danger">@ViewBag.numberNcgt</span></a>*@ 
+        <div class="card-tools">
+            <div class="input-group input-group-sm">
+                <input type="text" id="searchncgt" class="form-control" placeholder="Tìm kiếm">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" onclick="searchNganchangiaitoa();">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-tools -->
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body p-0">
+        <ul class="nav nav-tabs bg-gradient-light" id="custom-tabs-one-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true"><i class="fa fa-building"></i> Bất động sản</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false"><i class="fa fa-car"></i> Động Sản</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="custom-tabs-one-tabContent">
+            <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                <div class="mailbox-controls">
+                    <button type="button" class="btn btn-primary btn-xs mb-1" data-toggle="modal" data-target="#modal-themncgt">
+                        <i class="fa fa-plus"></i> Thêm
+                    </button>
+                    
+                    <!-- /.float-right -->
+                    <span class="mt-2" id="tblncgt">
+                        @{Html.RenderAction("Search", "NganchanGiaitoa", new { search = "", Page = 1 });}
+                    </span>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
+                Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
+            </div>
+            <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
+                Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
+            </div>
+        </div>
+        <!-- /.mail-box-messages -->
+    </div>
+    <!-- /.card-body -->
+</div>
+<div class="modal fade" id="modal-themncgt" data-keyboard="false" data-backdrop="static" ng-app="">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-primary">
+                <h4 class="modal-title font-weight-bold"><i class="fa fa-pen-alt"></i> Nhập thông tin Ngăn chặn, Giải tỏa</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="addNCGT" id="addNCGT" ng-submit="submitForm()" novalidate>
+                    <div class="row text-sm">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-cyan">
+                                            <h4 class="card-title font-weight-bold">1. Thông tin giấy chứng nhận</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-group input-group-sm mb-4 " ng-class="{ 'has-error' : addNCGT.gcn.$invalid && !addNCGT.gcn.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="scn">Số GCN</span>
+                                                </div>
+                                                <input type="text" id="gcn" name="gcn" class="form-control" aria-label="Small" aria-describedby="scn" ng-model="user.gcn" required>
+                                                <span ng-show="addNCGT.gcn.$invalid && !addNCGT.gcn.$pristine" class="btn btn-xs btn-danger swalDefaultError">Số GCN không được để trống!</span>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.noicap.$invalid && !addNCGT.noicap.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fnoicap">Nơi cấp</span>
+                                                </div>
+                                                <input type="text" name="noicap" id="noicap" class="form-control" aria-label="Small" aria-describedby="fnoicap" ng-model="user.noicap" required>
+                                                <span ng-show="addNCGT.noicap.$invalid && !addNCGT.noicap.$pristine" class="btn btn-xs btn-danger swalDefaultError">Nơi cấp không được để trống!</span>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.ngaycap.$invalid && !addNCGT.ngaycap.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fngaycap">Ngày cấp</span>
+                                                </div>
+                                                <input type="date" name="ngaycap" id="ngaycap" class="form-control" aria-label="Small" aria-describedby="fngaycap" ng-model="user.ngaycap" required>
+                                                <span ng-show="addNCGT.ngaycap.$invalid && !addNCGT.ngaycap.$pristine" class="btn btn-xs btn-danger swalDefaultError">Ngày cấp không được để trống!</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-cyan">
+                                            <h4 class="card-title font-weight-bold">2. Thông tin chủ sở hữu</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.hoten.$invalid && !addNCGT.hoten.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fhoten">Họ tên</span>
+                                                </div>
+                                                <input type="text" id="hoten" name="hoten" class="form-control" aria-label="Small" aria-describedby="fhoten" ng-model="user.hoten" required>
+                                                <span ng-show="addNCGT.hoten.$invalid && !addNCGT.hoten.$pristine" class="btn btn-xs btn-danger swalDefaultError">Họ tên không được để trống!</span>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.diachi.$invalid && !addNCGT.diachi.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fdiachicsh">Địa chỉ</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="diachi" name="diachi" aria-label="Small" aria-describedby="fdiachicsh" ng-model="user.diachi" required>
+                                                <span ng-show="addNCGT.diachi.$invalid && !addNCGT.diachi.$pristine" class="btn btn-xs btn-danger swalDefaultError">Địa chỉ không được để trống!</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-cyan">
+                                            <h4 class="card-title font-weight-bold">3. Thông tin tài sản</h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.thuadat.$invalid && !addNCGT.thuadat.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fthuadat">Thửa đất số</span>
+                                                </div>
+                                                <input type="text" id="thuadat" name="thuadat" class="form-control" aria-label="Small" aria-describedby="fthuadat" ng-model="user.thuadat" required>
+                                                <span ng-show="addNCGT.thuadat.$invalid && !addNCGT.thuadat.$pristine" class="btn btn-xs btn-danger swalDefaultError">Thửa đất không được để trống!</span>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.bandoso.$invalid && !addNCGT.bandoso.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fbandoso">Bản đồ số</span>
+                                                </div>
+                                                <input type="text" id="bandoso" name="bandoso" class="form-control" aria-label="Small" aria-describedby="fbandoso" ng-model="user.bandoso" required>
+                                                <span ng-show="addNCGT.bandoso.$invalid && !addNCGT.bandoso.$pristine" class="btn btn-xs btn-danger swalDefaultError">Bản đồ không được để trống!</span>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.diachithuadat.$invalid && !addNCGT.diachithuadat.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fdiachi">Địa chỉ</span>
+                                                </div>
+                                                <input type="text" id="diachithuadat" name="diachithuadat" class="form-control" aria-label="Small" aria-describedby="fdiachi" ng-model="user.diachithuadat" required>
+                                                <span ng-show="addNCGT.diachithuadat.$invalid && !addNCGT.diachithuadat.$pristine" class="btn btn-xs btn-danger swalDefaultError">Địa chỉ không được để trống!</span>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.dientich.$invalid && !addNCGT.dientich.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fdientich">Diện tích (m<sup>2</sup>) </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="dientich" name="dientich" aria-label="Small" aria-describedby="fdientich" ng-model="user.dientich" required>
+                                                <span ng-show="addNCGT.dientich.$invalid && !addNCGT.dientich.$pristine" class="btn btn-xs btn-danger swalDefaultError">Diện tích không được để trống!</span>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm mb-4">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fsudungchung">Sử dụng chung </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="sudungchung" name="sudungchung" aria-label="Small" aria-describedby="fsudungchung">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm mb-4">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fsudungrieng">Sử dụng riêng </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="sudungrieng" name="sudungrieng" aria-label="Small" aria-describedby="fsudungrieng">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fmucdichsudung">Mục đích sử dụng </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="mucdichsudung" name="mucdichsudung" aria-label="Small" aria-describedby="fmucdichsudung">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fthoihansudung">Thời hạn sử dụng </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="thoihansudung" name="thoihansudung" aria-label="Small" aria-describedby="fthoihansudung">
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="input-group input-group-sm mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fnguongoc">Nguồn gốc </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="nguongoc" name="nguongoc" aria-label="Small" aria-describedby="fnguongoc">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card">
+                                        <div class="card-header bg-gradient-cyan">
+                                            <h3 class="card-title font-weight-bold">4. Thông báo Ngăn chặn,Giải tỏa</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.loaivb.$invalid && !addNCGT.loaivb.$pristine }">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" for="loaivb">VB thuộc loại</span>
+                                                </div>
+                                                <select class="custom-select" id="loaivb" name="loaivb" ng-model="user.loaivb" required>
+                                                    <option value="" disabled="disabled">Chọn...</option>
+                                                    <option value="1">Ngăn Chặn</option>
+                                                    <option value="2">Giải tỏa</option>
+                                                </select>
+                                                <span ng-show="addNCGT.loaivb.$invalid && !addNCGT.loaivb.$pristine" class="btn btn-xs btn-danger swalDefaultError">Loại VB không được để trống!</span>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col-5">
+                                                    <div class="input-group input-group-sm mb-4" ng-class="{ 'has-error' : addNCGT.sokyhieu.$invalid && !addNCGT.sokyhieu.$pristine }">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fsokyhieu">Số ký hiệu </span>
+                                                        </div>
+                                                        <input type="text" id="sokyhieu" name="sokyhieu" class="form-control" aria-label="Small" aria-describedby="fsokyhieu" ng-model="user.sokyhieu" required>
+                                                        <span ng-show="addNCGT.sokyhieu.$invalid && !addNCGT.sokyhieu.$pristine" class="btn btn-xs btn-danger swalDefaultError">Số ký hiệu không được để trống!</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-7">
+                                                    <div class="input-group input-group-sm mb-4">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="fngayvb">Ngày VB </span>
+                                                        </div>
+                                                        <input type="date" class="form-control" id="ngayvb" name="ngayvb" aria-label="Small" aria-describedby="fngayvb">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-group input-group-sm mb-4">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="ftrichyeu">Trích yếu </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="trichyeu" name="trichyeu" aria-label="Small" aria-describedby="ftrichyeu">
+                                            </div>
+                                            <div class="input-group input-group-sm mb-5">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="fnoigui">Nơi gửi </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="noigui" name="noigui" aria-label="Small" aria-describedby="fnoigui">
+                                            </div>
+                                            <div class="input-group input-group-sm mb-5">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="flydo">Lý do </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="lydo" name="lydo" aria-label="Small" aria-describedby="flydo">
+                                            </div>
+                                            <!-- File input field -->
+                                            <input type="file" class="mb-4 form-control" id="file" onchange="return fileValidation()" />
+                                            <input type="button" id="msg" style="display:none;" class="mb-4 form-control" name="msg" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-2">
+                                <div class="card h-100">
+                                    <div class="card-header bg-gradient-warning">
+                                        <h4 class="card-title font-weight-bold">Kiểm tra thông tin</h4>
+                                    </div>
+                                    <div class="input-group input-group-sm mb-4">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="search-check"><i class="fa fa-search-plus"></i> </span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="GCN, Nơi cấp" aria-label="Small" aria-describedby="search-check">
+                                    </div>
+
+                                    <div class="card-body">
+                                        <div class="h-100 p-3 control-sidebar-content os-host os-theme-light os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-overflow os-host-overflow-y os-host-transition">
+                                            <div class="os-resize-observer-host">
+                                                <div class="os-resize-observer observed" style="left: 0px; right: auto;">
+                                                </div>
+                                            </div>
+                                            <div class="os-size-auto-observer" style="height: calc(100% + 1px); float: left;">
+                                                <div class="os-resize-observer observed">
+                                                </div>
+                                            </div>
+                                            <div class="os-content-glue" style="margin: -16px; width: 249px; height: 210px;">
+                                            </div>
+                                            <div class="os-padding">
+                                                <div class="os-viewport os-viewport-native-scrollbars-invisible h-100" style="overflow-y: scroll;">
+                                                    <div class="os-content" style="padding: 16px; height: 100%; width: 100%;">
+
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                        <div class="alert alert-warning alert-dismissible">
+                                                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                                                            Warning alert preview. This alert is dismissable.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar os-scrollbar-horizontal os-scrollbar-unusable">
+                                                <div class="os-scrollbar-track">
+                                                    <div class="os-scrollbar-handle" style="transform: translate(0px, 0px); width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar os-scrollbar-vertical">
+                                                <div class="os-scrollbar-track">
+                                                    <div class="os-scrollbar-handle" style="transform: translate(0px, 0px); height: 16.3186%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="os-scrollbar-corner">
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>*@
+                    </div>
+                    <input type="hidden" value="@Session["userid"]" id="UserID" />
+                </form>
+            </div>
+
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-success" ng-disabled="addNCGT.$invalid" onclick="addNcgt();"><i class="fa fa-plus"></i> Lưu lại</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<div id="Xemncgt"></div>
+<div id="Suancgt"></div>
+<div id="Xoancgt"></div>
+<!-- /.modal -->

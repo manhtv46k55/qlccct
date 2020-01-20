@@ -1,0 +1,122 @@
+﻿
+@model IPagedList<NganchanGiaitoa>
+@using ccct2019.Data
+@using PagedList
+@using PagedList.Mvc
+
+<table class="table table-bordered table-responsive table-hover d-md-table table-head-fixed" style="overflow-x: scroll;">
+    <thead class="text-dark" style="font-size:12px; font-family: Tahoma;">
+        <tr class="text-center m-auto" style="z-index:9999999999; ">
+            <th class="text-center text-white" style="width:3%; background-color:Highlight !important;">TT</th>
+            <th class="text-center text-white" style="width:5%; background-color:Highlight !important;">SỐ GCN</th>
+            <th class="text-center text-white" style="width:6%; background-color:Highlight !important;">NGÀY CẤP</th>
+            <th class="text-center text-white" style="width:21%; background-color:Highlight !important;">NƠI CẤP</th>
+            <th class="text-center text-white" style="width:10%; background-color:Highlight !important;">CHỦ SỞ HỮU</th>
+            <th class="text-center text-white" style="width:6%; background-color:Highlight !important;">NGÀY VB</th>
+            <th class="text-center text-white" style="width:52%; background-color:Highlight !important;">THÔNG TIN THỬA ĐẤT</th>
+           
+        </tr>
+
+    </thead>
+    <tbody class="" style="font-size:14px; ">
+        @{
+            int stt = 0;
+            if (Model.Count() > 0)
+            {
+                foreach (var nganchangiaitoa in Model.OrderByDescending(x => x.CreateDate))
+                {
+                    stt++;
+                    <tr ondblclick="btnGetXemncgtIDMod(@nganchangiaitoa.ID);" class="">
+                        <th style="width:3%">@stt</th>
+                        <td style="width:5%">@nganchangiaitoa.SoGCN</td>
+                        <td style="width:6%">@(nganchangiaitoa.Ngaycap?.ToString("dd/MM/yyyy"))</td>
+                        <td style="width:21%">@nganchangiaitoa.Noicap</td>
+                        <td style="width:10%">
+                            @nganchangiaitoa.Chusohuu
+
+                        </td>
+
+                        <td style="width:6%">@(nganchangiaitoa.NgayVB?.ToString("dd/MM/yyyy"))</td>
+                        <td style="width:52%">
+                            @*<div class="row">
+                                    <div class="col-2 border-right"><b class="text-primary">Thửa đất số:</b> <b class="text-danger">@nganchangiaitoa.Thuadatso</b></div>
+                                    <div class="col-2 border-right"><b class="text-primary">Bản đồ số:</b> <b class="text-danger">@nganchangiaitoa.Bandoso</b></div>
+                                    <div class="col-5 border-right"><b class="text-primary">Địa chỉ:</b> <span class="">@nganchangiaitoa.Diachithuadat</span></div>
+                                    <div class="col-3">
+                                        Loại: @{
+                                            if (nganchangiaitoa.LoaiVB.Equals(1))
+                                            {
+                                                <b style="color:red;"><i class="fa fa-stop-circle"></i> Ngăn chặn</b>
+                                            }
+                                            else
+                                            {
+                                                <b style="color:green;"><i class="fa fa-undo"></i> Giải tỏa</b>
+                                            }
+                                        }
+                                    </div>
+                                </div>*@
+                            <table class="table table-condensed mb-0">
+                                <thead>
+                                    <tr class="text-sm-center bg-info">
+                                        <td style="width:25%">Thửa đất</td>
+                                        <td style="width:20%">Bản đồ</td>
+                                        <td style="width:45%">Địa chỉ</td>
+                                        <td style="width:10%">Loại</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="text-sm-center" style="font-size:12px;">
+                                        <td style="width:15%"><b class="text-danger">@nganchangiaitoa.Thuadatso</b></td>
+                                        <td style="width:10%"><b class="text-danger">@nganchangiaitoa.Bandoso</b></td>
+                                        <td style="width:55%"><span>@nganchangiaitoa.Diachithuadat</span></td>
+                                        <td style="width:20%">
+                                            @{
+                                                if (nganchangiaitoa.LoaiVB.Equals(1))
+                                                {
+                                                    <b class="text-danger">Ngăn chặn</b>
+
+                                                }
+                                                else
+                                                {
+                                                    <b style="color:green;">Giải tỏa</b>
+                                                }
+                                            }
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input type="hidden" id="ncgtID" value="@nganchangiaitoa.ID" />
+                        </td>
+
+                       
+
+                    </tr>
+
+                }
+            }
+            else
+            {
+                @Html.Raw("Không có kết quả nào !")
+            }
+        }
+    </tbody>
+
+</table>
+<div class="mailbox-controls">
+    <!-- Check all button -->
+    @*<button type="button" class="btn btn-default btn-sm checkbox-toggle">
+            <i class="far fa-square"></i>
+        </button>*@
+    <!-- /.btn-group -->
+
+    <div class="float-right">
+        @Html.PagedListPager(Model, page => Url.Action("SearchMod", "NganchanGiaitoa", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "tblncgtMod" }))
+    </div>
+    <!-- /.float-right -->
+
+
+</div>
+
+@*Trang @Model.PageNumber / @Model.PageCount*@
+
